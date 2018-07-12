@@ -20,10 +20,11 @@ def handle_stream(magnet_link):
         print("Ok! Paste the magnet link in your default Torrent Client\n")
     else:
         print("Wrong choice! Please Try Again\n")
-        
+
 def yts_search(query):
     print(stylize("Welcome to YTS Movie Downloader.\n", colored.fg("red")))
-    url='https://yts.am/api/v2/list_movies.json?query_term='+query
+    scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
+    url=scrapper_api+'https://yts.am/api/v2/list_movies.json?query_term='+query
     print()
     print(stylize("Searching......\n",colored.fg("green")))
     source=requests.get(url).text
