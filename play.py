@@ -7,7 +7,13 @@ import colored
 from colored import stylize
 import open_magnet
 import peerflix_play
+import spell
+import re
+
+# Handle wrong spellings
 query=input("Enter the movie name:\n")
+query=spell.Check(query)
+print("Searching for movie: ",query)
 
 # Handle Streaming
 def handle_stream(magnet_link):
@@ -118,13 +124,37 @@ def kickass_search(query):
     print ("Your magnet link is now in your clipboard.")
     handle_stream(magnet_link)
 
-engine=int(input("Select your preferred search engine: \n1: PirateBay\n2: Kickass\n3: YTS\n"))
+def zooqle_search(query):
+    scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
+    url=scrapper_api+'https://zooqle.unblocked.vet/search?q='+query
+    print("Searching......")
+    source=requests.get(url).text
+    soup=bs(source,'lxml')
+    magnet_results=soup.find_all('a',title='Magnet link',href=True)
+    i=1
+    for a in soup.find_all('a',class_=' small', href=True):
+        print (i," :", a['href'][1:-11])
+        print()
+        i+=1
+
+    index=int(input("Select one from the list below: \n"))
+    m=[]
+    for links in magnet_results:
+        m.append(links['href'])
+    magnet_link=m[index-1]
+    pyperclip.copy(magnet_link)
+    print("Magnet link of the selected movie is copied to clipboard!")
+    handle_stream(magnet_link)
+
+engine=int(input("Select your preferred search engine: \n1: PirateBay\n2: Kickass\n3: YTS\n4: Zooqle\n"))
 if engine==1:
     piratebay_search(query)
 elif engine==2:
     kickass_search(query)
 elif engine==3:
     yts_search(query)
+elif engine==4:
+    zooqle_search(query)
 else:
     print("Wrong Choice! Try again")
     quit()
