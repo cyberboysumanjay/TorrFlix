@@ -24,6 +24,8 @@ Install all requirements at once using the command:
 
 > sudo -H pip3 install -r requirements.txt
 
+TorrFlix uses VLC for streaming. Make sure it is installed in your PC. Read install instructions [here](https://www.videolan.org/vlc/)
+
  It seems we are all set with the requirements things. Let's start the script now!
  Run the script using the command
  > python3 play.py
