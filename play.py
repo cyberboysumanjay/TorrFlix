@@ -5,23 +5,57 @@ import urllib.parse
 import pyperclip
 import colored
 from colored import stylize
-import open_magnet
-import peerflix_play
 import spell
 import re
+import subprocess,os,sys
 
 # Handle wrong spellings
 query=input("Enter the movie name:\n")
 query=spell.Check(query)
 print("Searching for movie: ",query)
+#Open Magnet Link
+def open_magnet(magnet):
+    if sys.platform.startswith('linux'):
+        subprocess.Popen(['xdg-open', magnet],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    elif sys.platform.startswith('win32'):
+        os.startfile(magnet)
+    elif sys.platform.startswith('cygwin'):
+        os.startfile(magnet)
+    elif sys.platform.startswith('darwin'):
+        subprocess.Popen(['open', magnet],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    else:
+        subprocess.Popen(['xdg-open', magnet],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 # Handle Streaming
+def webtorrent_stream(magnet_link):
+    command=[]
+    command.append('webtorrent')
+    command.append(magnet_link)
+    command.append('--vlc')
+    subprocess.call(command)
+
+def peerflix_stream(magnet):
+    command=[]
+    command.append('peerflix')
+    command.append(magnet)
+    command.append('-m')
+    command.append('-a')
+    command.append('--vlc')
+    subprocess.call(command)
+
 def handle_stream(magnet_link):
     print("Do you want to stream the movie?\n")
     print(stylize("Press 1 for Yes or Press 2 for No",colored.fg("red")))
     selection=int(input())
     if selection==1:
-        peerflix_play.peerflix_stream(magnet_link)
+        stream_handler=int(input("Choose your default stream handler:\n1: Peerflix\n2: WebTorrent\n\n"))
+        if stream_handler==1:
+            webtorrent_stream(magnet_link)
+        elif stream_handler==2:
+            peerflix_stream(magnet_link)
+        else:
+            print("Keep your eyes open and select from the displayed options\n")
+
     elif selection==2:
         print("Ok! Paste the magnet link in your default Torrent Client\n")
     else:
