@@ -63,8 +63,7 @@ def handle_stream(magnet_link):
 
 def yts_search(query):
     print(stylize("Welcome to YTS Movie Downloader.\n", colored.fg("red")))
-    scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
-    url=scrapper_api+'https://yts.am/api/v2/list_movies.json?query_term='+query
+    url='https://yts.am/api/v2/list_movies.json?query_term='+query
     print(stylize("Searching......\n",colored.fg("green")))
     source=requests.get(url).text
     loaded_json= (json.loads(source))
