@@ -50,9 +50,9 @@ def handle_stream(magnet_link):
     if selection==1:
         stream_handler=int(input("Choose your default stream handler:\n1: Peerflix\n2: WebTorrent\n\n"))
         if stream_handler==1:
-            webtorrent_stream(magnet_link)
-        elif stream_handler==2:
             peerflix_stream(magnet_link)
+        elif stream_handler==2:
+            webtorrent_stream(magnet_link)
         else:
             print("Keep your eyes open and select from the displayed options\n")
 
@@ -65,7 +65,6 @@ def yts_search(query):
     print(stylize("Welcome to YTS Movie Downloader.\n", colored.fg("red")))
     scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
     url=scrapper_api+'https://yts.am/api/v2/list_movies.json?query_term='+query
-    print()
     print(stylize("Searching......\n",colored.fg("green")))
     source=requests.get(url).text
     loaded_json= (json.loads(source))
