@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup as bs
 import requests
 import urllib.parse
 import pyperclip
-import colored
-from colored import stylize
 import spell
 import re
 import subprocess,os,sys
@@ -32,7 +30,10 @@ def webtorrent_stream(magnet_link):
     command.append('webtorrent')
     command.append(magnet_link)
     command.append('--vlc')
-    subprocess.call(command)
+    if sys.platform.startswith('linux'):
+        subprocess.call(command)
+    elif sys.platform.startswith('win32'):
+        subprocess.call(command,shell=True)
 
 def peerflix_stream(magnet):
     command=[]
@@ -41,18 +42,21 @@ def peerflix_stream(magnet):
     command.append('-m')
     command.append('-a')
     command.append('--vlc')
-    subprocess.call(command)
+    if sys.platform.startswith('linux'):
+        subprocess.call(command)
+    elif sys.platform.startswith('win32'):
+        subprocess.call(command,shell=True)
 
 def handle_stream(magnet_link):
-    print("Do you want to stream the movie?\n")
-    print(stylize("Press 1 for Yes or Press 2 for No",colored.fg("red")))
+    print("\nDo you want to stream the movie?\n")
+    print("Press 1 for Yes or Press 2 for No")
     selection=int(input())
     if selection==1:
-        stream_handler=int(input("Choose your default stream handler:\n1: Peerflix\n2: WebTorrent\n\n"))
+        stream_handler=int(input("\nChoose your default stream handler:\n1: Peerflix\n2: WebTorrent\n\n"))
         if stream_handler==1:
-            peerflix_stream(magnet_link)
-        elif stream_handler==2:
             webtorrent_stream(magnet_link)
+        elif stream_handler==2:
+            peerflix_stream(magnet_link)
         else:
             print("Keep your eyes open and select from the displayed options\n")
 
@@ -62,34 +66,39 @@ def handle_stream(magnet_link):
         print("Wrong choice! Please Try Again\n")
 
 def yts_search(query):
-    print(stylize("Welcome to YTS Movie Downloader.\n", colored.fg("red")))
+    print("Welcome to YTS Movie Downloader.\n")
     url='https://yts.am/api/v2/list_movies.json?query_term='+query
-    print(stylize("Searching......\n",colored.fg("green")))
+    print()
+    print("Searching......")
     source=requests.get(url).text
     loaded_json= (json.loads(source))
-    print(stylize(loaded_json['status_message'],colored.fg('red')))
+    print(loaded_json['status_message'])
     movie_data=(loaded_json['data'])
     movies=movie_data['movies']
     result=movies[0]
-    print(stylize("Here is your search result",colored.fg('green')))
-    print(stylize('Title: ',colored.fg("red")))
+    print("\nHere is your search result:\n")
+    print('Title: ')
     print(result['title_long'])
-    print(stylize('Rating: ',colored.fg("red")))
+    print()
+    print('Rating: ')
     print(result['rating'])
-    print(stylize('Summary: ',colored.fg("red")))
+    print()
+    print('Summary: ')
     print(result['summary'])
-    print(stylize('Language: ',colored.fg("red")))
+    print()
+    print('Language: ')
     print(result['language'])
+    print()
     available_torrents=result['torrents']
-    print(stylize("Here is a list of available quality: ",colored.fg("red")))
+    print("\nHere is a list of available quality: \n")
     j=1
     for i in available_torrents:
-        print (j,stylize("Quality:",colored.fg("yellow")),i['quality'],stylize("Size:",colored.fg("yellow")),i['size'])
+        print (j,"Quality:",i['quality'],"Size:",i['size'])
         j=j+1
     choice=int(input("Enter your choice: "))
     choice=choice-1
     hash_code=available_torrents[choice]['hash']
-    print(stylize("Building Magnet Link...",colored.fg("yellow")))
+    print("Building Magnet Link...")
     m2=hash_code
     m1='magnet:?xt=urn:btih:'
     m4='&tr='
@@ -101,8 +110,8 @@ def yts_search(query):
     for i in range(len(m5)):
         trackers=trackers+m4+m5[i]
     magnet_link=m1+m2+m3+trackers
-    print(stylize("Your magnet link is copied to your clipboard",colored.fg("yellow")))
-    print(magnet_link)
+    print("Your magnet link is copied to your clipboard\n")
+    #print(magnet_link)
     pyperclip.copy(magnet_link)
     handle_stream(magnet_link)
 
