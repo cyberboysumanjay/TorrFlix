@@ -54,9 +54,9 @@ def handle_stream(magnet_link):
     if selection==1:
         stream_handler=int(input("\nChoose your default stream handler:\n1: Peerflix\n2: WebTorrent\n\n"))
         if stream_handler==1:
-            webtorrent_stream(magnet_link)
-        elif stream_handler==2:
             peerflix_stream(magnet_link)
+        elif stream_handler==2:
+            webtorrent_stream(magnet_link)
         else:
             print("Keep your eyes open and select from the displayed options\n")
 
