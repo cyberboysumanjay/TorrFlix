@@ -171,7 +171,7 @@ def kickass_search(query):
 
 def zooqle_search(query):
     scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
-    url=scrapper_api+'https://zooqle.unblocked.vet/search?q='+query
+    url='https://zooqle.unblocked.vet/search?q='+query
     print("Searching......")
     source=requests.get(url).text
     soup=bs(source,'lxml')
