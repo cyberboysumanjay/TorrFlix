@@ -8,6 +8,7 @@ import re
 import subprocess,os,sys
 
 # Handle wrong spellings
+
 query=input("Enter the movie name:\n")
 query=spell.Check(query)
 print("Searching for movie: ",query)
@@ -68,14 +69,17 @@ def handle_stream(magnet_link):
 def yts_search(query):
     print("Welcome to YTS Movie Downloader.\n")
     url='https://yts.am/api/v2/list_movies.json?query_term='+query
-    print()
     print("Searching......")
     source=requests.get(url).text
     loaded_json= (json.loads(source))
     print(loaded_json['status_message'])
     movie_data=(loaded_json['data'])
-    movies=movie_data['movies']
-    result=movies[0]
+    try:
+        movies=movie_data['movies']
+        result=movies[0]
+    except KeyError:
+        print ('No movie named ',query,' found on YTS. Try with another providers.\n')
+        exit()
     print("\nHere is your search result:\n")
     print('Title: ')
     print(result['title_long'])
@@ -117,7 +121,7 @@ def yts_search(query):
 
 def piratebay_search(query):
     scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
-    url=scrapper_api+'https://pirateproxy.mx/search/'+query+'/0/99/0'
+    url='https://thepiratebay-org.prox.fun/s/?q='+query+'&video=on&category=0&page=0&orderby=99'
     print("Searching......")
     source=requests.get(url).text
     soup=bs(source,'lxml')
@@ -142,7 +146,7 @@ def piratebay_search(query):
 def kickass_search(query):
     scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
     base_url="https://kickass.unblocked.vet/usearch/"
-    url=scrapper_api+base_url+query+'/'
+    url=base_url+query+'/'
     print("Searching......")
     source=requests.get(url).text
     soup=bs(source,'lxml')
