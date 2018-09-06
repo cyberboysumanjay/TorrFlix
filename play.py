@@ -8,7 +8,14 @@ import re
 import subprocess,os,sys
 
 # Handle wrong spellings
-
+title_art=r""" _____              ______ _ _
+|_   _|             |  ___| (_)
+  | | ___  _ __ _ __| |_  | |___  __
+  | |/ _ \| '__| '__|  _| | | \ \/ /
+  | | (_) | |  | |  | |   | | |>  <
+  \_/\___/|_|  |_|  \_|   |_|_/_/\_\
+                                    """
+print(title_art+'\n')
 query=input("Enter the movie name:\n")
 query=spell.Check(query)
 print("Searching for movie: ",query)
