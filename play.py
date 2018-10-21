@@ -127,8 +127,8 @@ def yts_search(query):
     handle_stream(magnet_link)
 
 def piratebay_search(query):
-    scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
-    url='https://thepiratebay-org.prox.fun/s/?q='+query+'&video=on&category=0&page=0&orderby=99'
+    #ubuntu
+    url='https://pirateproxy.gdn/search/'+query+'/0/99/0'
     print("Searching......")
     source=requests.get(url).text
     soup=bs(source,'lxml')
@@ -151,9 +151,8 @@ def piratebay_search(query):
     handle_stream(magnet_link)
 
 def kickass_search(query):
-    scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
-    base_url="https://kickass.unblocked.vet/usearch/"
-    url=base_url+query+'/'
+    base_url="https://kat.unblocked.gdn/katsearch/page/1/"
+    url=base_url+query
     print("Searching......")
     source=requests.get(url).text
     soup=bs(source,'lxml')
@@ -178,7 +177,7 @@ def kickass_search(query):
 
 def zooqle_search(query):
     scrapper_api='https://api.scraperapi.com/?key=2500866341976677504461594942127656&url='
-    url='https://zooqle.unblocked.vet/search?q='+query
+    url='https://zooqle.com/search?q='+query
     print("Searching......")
     source=requests.get(url).text
     soup=bs(source,'lxml')
