@@ -40,7 +40,7 @@ TorrFlix suggests VLC for streaming. Make sure it is installed in your PC. Read 
 
  Let's start the script now!
  Run the script using the command
- > python3 app.py   
+ > python3 play.py   
 
  Don't forget to star the repo if you like the work :)
  #### © Copyright  [Sumanjay](https://cyberboysumanjay.github.io)
