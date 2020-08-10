@@ -1,10 +1,10 @@
-# TorrFlix
-A simple torrent streamer written in python.
-#### Tested on Linux 64bit system with Python 3.5 and Windows 10 64bit system with Python 3.7
+# TorrFlix :movie_camera:
+A simple torrent streamer written in Python 3.
+#### Tested on Linux 64bit system with Python 3.8.2
 
 ## How to use
-TorrFlix uses Peerflix and Webtorrent as stream handler install any one or both as per your wish.
-For that we need to setup nodejs and npm. 
+TorrFlix uses Webtorrent-CLI as stream handler.
+For that we need to setup nodejs and npm.
 #### Windows users can install nodejs from [here](https://nodejs.org/en/download/).
 #### Linux users just fire up the terminal and run these commands.
 > sudo apt-get update
@@ -19,33 +19,29 @@ Quickly check the installed version through this command. If this gave you an er
 
 > nodejs -v
 
-We're all set to install peerflix and webtorrent-cli now.
-#### Linux users run this command. 
- 
-> sudo npm install -g peerflix 
+We're all set to install webtorrent-cli now.
+#### Linux users run this command.
 
 > sudo npm install webtorrent-cli -g
 
-#### Windows users can open Command Prompt and run these commands there. Don't forget to remove 'sudo' at the starting of the command. 
+#### Windows users can open Command Prompt and run these commands there. Don't forget to remove 'sudo' at the starting of the command.
 
 Make sure you have Python3 and pip installed on your pc, if not run this:
 #### Linux users do this
 > sudo apt-get install python3-pip
-#### Windows users head over here and [download](https://www.python.org/downloads/) Python3 64bit 
-Install all requirements at once using the command in linux:
+#### Windows users head over here and [download](https://www.python.org/downloads/) Python3 64bit
 
-> sudo -H pip3 install -r requirements.txt
+Install all requirements at once using the command:
 
-Windows users just type:
 > pip3 install -r requirements.txt
 
-TorrFlix uses VLC for streaming. Make sure it is installed in your PC. Read install instructions [here](https://www.videolan.org/vlc/)
 
- It seems we are all set with the requirements things. Let's start the script now!
+TorrFlix suggests VLC for streaming. Make sure it is installed in your PC. Read install instructions [here](https://www.videolan.org/vlc/)
+
+ Let's start the script now!
  Run the script using the command
- > python3 play.py   #Linux 
- > python play.py    #Windows
- 
+ > python3 app.py   
+
  Don't forget to star the repo if you like the work :)
  #### © Copyright  [Sumanjay](https://cyberboysumanjay.github.io)
  All rights reserved.
