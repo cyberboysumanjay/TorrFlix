@@ -13,7 +13,7 @@ def main():
     movie_name = input("Enter the movie name:\n")
     print(f"Searching for {movie_name}")
     base_url = f"https://api.sumanjay.cf/torrent/?query={movie_name}"
-    torrent_results = requests.get(base_url).json()
+    torrent_results = requests.get(url=base_url).json()
     index = 1
     magnet= []
     for result in torrent_results:
@@ -33,7 +33,7 @@ def main():
 
 
 # Handle Streaming
-def webtorrent_stream(magnet_link,download):
+def webtorrent_stream(magnet_link:str,download:bool):
     cmd = []
     cmd.append("webtorrent")
     cmd.append(magnet_link)
