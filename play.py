@@ -21,16 +21,20 @@ def main():
             print(index,") ",result['name'],"-->",result['size'])
             index+=1
             magnet.append(result['magnet'])
-
-    choice = int(input("Enter the index of the movie which you want to stream\n"))
-    magnet_link = magnet[choice-1]
-    download = False # Default is streaming
-    stream_choice = int(input("Press 1 to stream or Press 2 to download the movie\n"))
-    if stream_choice == 2:
-        download = True
-
-    webtorrent_stream(magnet_link,download)
-
+    if magnet:
+        choice = int(input("Enter the index of the movie which you want to stream\n"))
+        try:
+            magnet_link = magnet[choice-1]
+            download = False # Default is streaming
+            stream_choice = int(input("Press 1 to stream or Press 2 to download the movie\n"))
+            if stream_choice == 2:
+                download = True
+                
+            webtorrent_stream(magnet_link,download)
+        except IndexError:
+            print("Incorrect Index entered")
+    else:
+        print(f"No results found for {movie_name}")
 
 # Handle Streaming
 def webtorrent_stream(magnet_link:str,download:bool):
